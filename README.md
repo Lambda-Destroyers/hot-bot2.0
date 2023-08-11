@@ -1,1 +1,5 @@
-Place holder
+# Team Members
+
+Slava Makeev
+Andrew Carroll
+Jared Ciccarello
