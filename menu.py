@@ -35,7 +35,7 @@ def menu():
         console.print(
             "Options are [bold green]ACTIVE[/bold green]"
             "\nOptions that are work in [bold medium_violet_red]PROGRESS[/bold medium_violet_red]"
-            "\n1. [bold green]Help[/bold green]\n2. [bold green]AI Analysis[/bold green]\n3. [bold medium_violet_red]Live trading: [/bold medium_violet_red](In production) \n4. [bold green]About us[/bold green] \n5. [bold red]Exit[/bold red]",
+            "\n1. [bold green]Help[/bold green]\n2. [bold green]AI Analysis[/bold green]\n3. [bold medium_violet_red]Start Trading: [/bold medium_violet_red](In production) \n4. [bold green]About us[/bold green] \n5. [bold red]Exit[/bold red]",
             soft_wrap=False,
         )
         choice = Prompt.ask(

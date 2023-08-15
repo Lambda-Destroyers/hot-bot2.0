@@ -62,7 +62,21 @@ def get_prices(days, option):
     show_plot(btc_timestamps, btc_closes, btc_lows, btc_highs, eth_timestamps, eth_closes, eth_lows, eth_highs, days)
 
 def show_plot(btc_timestamps, btc_closes, btc_lows, btc_highs, eth_timestamps, eth_closes, eth_lows, eth_highs, days):
-    # ... (existing code for plotting)
+
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 8))
+    ax1.plot(btc_timestamps, btc_closes, color='blue')
+    ax1.vlines(btc_timestamps, btc_lows, btc_highs, color='black', linewidth=1)
+    ax1.set_title(f"Bitcoin (BTC-USD) - {days} Day Historical Data")
+    ax1.set_xlabel("Date")
+    ax1.set_ylabel("Price (USD)")
+    ax2.plot(eth_timestamps, eth_closes, color='green')
+    ax2.vlines(eth_timestamps, eth_lows, eth_highs, color='black', linewidth=1)
+    ax2.set_title(f"Ethereum (ETH-USD) - {days} Day Historical Data")
+    ax2.set_xlabel("Date")
+    ax2.set_ylabel("Price (USD)")
+    fig.autofmt_xdate()  
+    plt.tight_layout()
+    plt.show()
 
 def get_option(days, option):
     get_prices(days, option)
