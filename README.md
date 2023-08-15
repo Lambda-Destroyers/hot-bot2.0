@@ -4,6 +4,8 @@ Slava Makeev
 Andrew Carroll
 Jared Ciccarello
 
+super user: admin
+password: password
 
 
 ![Wire Frame](./wire.png)
