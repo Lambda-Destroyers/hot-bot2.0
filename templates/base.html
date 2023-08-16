@@ -1,0 +1,41 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{% block title %}All the Snacks{% endblock %}</title>
+ <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-green-50">
+<header>
+  <nav class="bg-gray-900 border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
+        <div class="container flex flex-wrap items-center justify-between mx-auto">
+          <a href="{% url 'home' %}">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Things_Logo.svg" class="p-3 h-12 bg-white rounded" alt="Logo" />
+          </a>
+        </div>
+      </nav>
+</header>
+<main>
+<div class="container mx-auto mt-4">
+  {% block content %}
+  {% endblock content %}
+</div>
+</main>
+<footer
+      class="bg-gray-900
+             text-sm text-white
+             fixed
+             inset-x-0
+             bottom-0
+             p-2">
+      &copy; CodeFellows 2023
+    </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
+</body>
+</html>
