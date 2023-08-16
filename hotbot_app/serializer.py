@@ -4,5 +4,5 @@ from .models import HotBot
 
 class HotBotSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', 'owner', 'name', 'description', 'updated_at', 'created_at')
+        fields = ('id', 'owner', 'name', 'description',)
         model = HotBot
