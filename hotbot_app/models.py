@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 #from trading import ...
 
 # 0               id  d9964477-37cd-4ed6-8c40-67e814d12ee1
@@ -18,6 +18,18 @@ from django.contrib.auth import get_user_model
 # 13          status                               pending
 # 14         settled                                 False
     
+class HotBot(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=20, decimal_places=10)
+    currency = models.CharField(max_length=50)
+    bot_run_time = models.IntegerField()
+    desired_ROI = models.DecimalField(max_digits=20, decimal_places=10)
+    stop_loss = models.DecimalField(max_digits=20, decimal_places=10)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.currency} HotBot (owned by {self.owner})"
+
 class Transaction(models.Model):
     transaction_id = models.AutoField(primary_key=True)
     price = models.DecimalField(max_digits=20, decimal_places=10)
