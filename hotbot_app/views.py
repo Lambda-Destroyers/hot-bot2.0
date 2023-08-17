@@ -7,6 +7,7 @@ from .permissions import isOwnerOrReadOnly
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
+from rest_framework.views import APIView
 
 class CustomAdminLoginView(LoginView):
     def get_success_url(self, request):
@@ -34,6 +35,11 @@ class HotBotDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = HotBot.objects.all()
     serializer_class = HotBotSerializer
 
+
+
+class HotBotData(APIView):
+   permission_classes = (IsAuthenticated, )
+   
 
 # Create your views here.
 
