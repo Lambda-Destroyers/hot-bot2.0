@@ -40,19 +40,25 @@ def create_order(product_id, side, order_type, size=None, funds=None, price=None
 
 def trade_crypto(base_currency, quote_currency, amount, side, order_type, price=None):
     product_id = retrieve.get_product_id(base_currency, quote_currency)
-    historical_data = retrieve.fetch_historical_data(product_id, 3600)  # Example granularity
+    historical_data = retrieve.fetch_historical_data(product_id, 3600)
     processed_data = process.process_historical_data(historical_data)
     predicted_price = training.predict_future_price(processed_data)
+
+    # Use the provided price if it's given, otherwise use the predicted price
+    trade_price = price if price is not None else predicted_price
+    
     if predicted_price > processed_data.iloc[-1]:
         side = "buy"
     else:
         side = "sell"
+    
     order_configuration = {
         "size": str(amount),
-        "price": str(predicted_price),  # updated to use predicted_price
+        "price": str(trade_price)
     }
     response = create_order(product_id, side, order_type, **order_configuration)
     return response
+
 
 def print_trade_response_as_table(response):
     if response:
