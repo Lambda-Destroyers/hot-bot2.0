@@ -7,6 +7,7 @@ import json
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 import numpy as np
+import config as CONFIG
 
 API_KEY = '60fc27c1b7540cd1f99be2cf81fb010a'
 API_SECRET = 'Vb54QDcZxH8ecWHKBJI7d85AjMHzwFplWMK/k6YPEolLrrwk2gkIYgZkf7LF0mS7LtznH7jDu/hVQy9LYWdtAA=='
