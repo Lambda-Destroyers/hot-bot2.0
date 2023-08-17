@@ -7,6 +7,9 @@ Jared Ciccarello
 super user: admin
 password: password
 
+user: John
+Pass: Magical_Barrier
+
 
 ![Wire Frame](./wire.png)
 ![Domain Model](./domain.png)
