@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from hotbot_app.views import CustomAdminLoginView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('hotbot_app.urls')),
+    path('crypto-page', include('hotbot_app.urls')),
+    path('admin/login/', include('hotbot_app.urls')),
+    path('', admin.site.urls),
 ]

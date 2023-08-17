@@ -42,7 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Local
     'hotbot_app',
+
+    #3rd party
     'rest_framework'
 ]
 
@@ -58,6 +62,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'hotbot_project.urls'
+
+LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/crypto-page'
 
 TEMPLATES = [
     {
