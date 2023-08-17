@@ -1,8 +1,9 @@
 from rest_framework import serializers
-from .models import HotBot
+from .models import  Transaction
 
 
-class HotBotSerializer(serializers.ModelSerializer):
+class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', 'owner', 'name', 'description',)
-        model = HotBot
+        fields = ('transaction_id', 'price', 'size', 'product_id', 'side', 'transaction_type', 'created_at','status', )
+       
+

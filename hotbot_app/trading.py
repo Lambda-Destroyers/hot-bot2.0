@@ -5,11 +5,14 @@ import hashlib
 import base64
 import json
 import pandas as pd
+from config import CONFIG
 
-API_KEY = '60fc27c1b7540cd1f99be2cf81fb010a'
-API_SECRET = 'Vb54QDcZxH8ecWHKBJI7d85AjMHzwFplWMK/k6YPEolLrrwk2gkIYgZkf7LF0mS7LtznH7jDu/hVQy9LYWdtAA=='
-API_PASSPHRASE = 'mm07qohm8q'
-COINBASE_API_URL = "https://api-public.sandbox.exchange.coinbase.com/"
+API_KEY = CONFIG["API_KEY"]
+print(API_KEY)
+API_SECRET= CONFIG["API_SECRET"]
+API_PASSPHRASE = CONFIG["API_PASSPHRASE"]
+COINBASE_API_URL = CONFIG["COINBASE_API_URL"]
+
 
 def create_headers(method, request_path, body=''):
     timestamp = str(int(time.time()))
@@ -57,7 +60,7 @@ def create_order(product_id, side, order_type, size=None, funds=None, price=None
     print(f"Response Content: {response.text}")
 
     return response.json()
-
+   
 def trade_crypto(base_currency, quote_currency, amount, side, order_type, price=None):
     product_id = get_product_id(base_currency, quote_currency)
 

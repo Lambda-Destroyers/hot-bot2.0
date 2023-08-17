@@ -5,6 +5,8 @@
 {% block content %}
 {% if user.is_authenticated %}
   OUR MAIN CONTENT = > CRYPTO BOT GOES HERE
+  
+
   <p><a href="{% url 'logout' %}">Log Out</a></p>
 {% else %}
   <p>You are not logged in</p>
