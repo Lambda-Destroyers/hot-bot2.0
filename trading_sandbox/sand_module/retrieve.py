@@ -3,7 +3,6 @@ import time
 import hmac
 import hashlib
 import base64
-import json
 
 API_KEY = '60fc27c1b7540cd1f99be2cf81fb010a'
 API_SECRET = 'Vb54QDcZxH8ecWHKBJI7d85AjMHzwFplWMK/k6YPEolLrrwk2gkIYgZkf7LF0mS7LtznH7jDu/hVQy9LYWdtAA=='
