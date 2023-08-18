@@ -18,7 +18,7 @@ def create_order(product_id, side, order_type, size=None, funds=None, price=None
         body["size"] = str(size)
     if funds:
         body["funds"] = str(funds)
-    if price:
+    if price and order_type == "limit": # Only include the price parameter if the order type is "limit"
         body["price"] = str(price)
         print(f"Price: {price}")
     body_str = json.dumps(body, separators=(',', ':'))
@@ -38,26 +38,38 @@ def create_order(product_id, side, order_type, size=None, funds=None, price=None
         response_json.pop('message', None)
         return response_json
 
-def trade_crypto(base_currency, quote_currency, amount, side, order_type, price=None):
+def trade_crypto(base_currency, quote_currency, amount, side, order_type, price=None, retry_attempts=10, price_adjustment=0.05):
     product_id = retrieve.get_product_id(base_currency, quote_currency)
-    historical_data = retrieve.fetch_historical_data(product_id, 3600)
+    historical_data = retrieve.fetch_historical_data(product_id, 3600)  # Example granularity
     processed_data = process.process_historical_data(historical_data)
     predicted_price = training.predict_future_price(processed_data)
-
-    # Use the provided price if it's given, otherwise use the predicted price
-    trade_price = price if price is not None else predicted_price
-    
     if predicted_price > processed_data.iloc[-1]:
         side = "buy"
     else:
         side = "sell"
-    
-    order_configuration = {
-        "size": str(amount),
-        "price": str(trade_price)
-    }
-    response = create_order(product_id, side, order_type, **order_configuration)
-    return response
+
+    attempts = 0
+    while attempts < retry_attempts:
+        adjusted_price = round(predicted_price * (1 + price_adjustment * attempts), 2)
+        order_configuration = {
+            "size": str(amount),
+            "price": str(adjusted_price),  # Use the adjusted price in the order
+        }
+        print(f"Adjusted Price: {adjusted_price}")
+        response = create_order(product_id, side, order_type, **order_configuration)
+        if response is None or "message" in response:
+            # Print the error message received
+            if response:
+                print(f"Error message received: {response['message']}")
+            
+            # Always increment attempts and adjust price, regardless of error message
+            attempts += 1
+            continue
+        else:
+            return response  # Return the successful response
+
+    # Return None if all retry attempts failed
+    return None
 
 
 def print_trade_response_as_table(response):
@@ -89,8 +101,8 @@ if __name__ == "__main__":
     trade_count = 0
     base_currency = "BTC"
     quote_currency = "USD"
-    amount_to_trade = 0.001
-    order_type = "limit"
+    amount_to_trade = 0.1
+    order_type = "market"
 
     while trade_count < max_trades:
         try:

@@ -3,43 +3,49 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
-  <h1 class="text-2xl font-bold mb-4">Bot Configuration</h1>
-  <form class="bg-gray-200 p-4 rounded-md" method="post">
-    {% csrf_token %}
-    <div class="mb-4">
-      {{ form.price.label_tag }} {{ form.price }}
-    </div>
-    <div class="mb-4">
-      {{ form.currency.label_tag }} {{ form.currency }}
-    </div>
-    <div class="mb-4">
-      {{ form.bot_run_time.label_tag }} {{ form.bot_run_time }}
-    </div>
-    <div class="mb-4">
-      {{ form.desired_ROI.label_tag }} {{ form.desired_ROI }}
-    </div>
-    <div class="mb-4">
-      {{ form.stop_loss.label_tag }} {{ form.stop_loss }}
-    </div>
-    <button class="px-4 py-2 bg-blue-500 text-white rounded-md" type="submit">Start Bot</button>
-  </form>
+<!-- {% if user.is_authenticated %} -->
+<h1 class="text-2xl font-bold mb-4">Bot Configuration</h1>
+<p class="mb-4 font-bold">Configure your bot below. Once you have configured your bot, click the "Start Bot" button to begin trading.</p>
+<!-- <form action="" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="Submit" value="Save"> -->
+</form>
+<form class="bg-gray-200 p-4 rounded-md" method="post">
+  {% csrf_token %}
+  <div class="mb-4">
+    {{ form.price.label_tag }} {{ form.price }}
+  </div>
+  <div class="mb-4">
+    {{ form.currency.label_tag }} {{ form.currency }}
+  </div>
+  <div class="mb-4">
+    {{ form.bot_run_time.label_tag }} {{ form.bot_run_time }}
+  </div>
+  <div class="mb-4">
+    {{ form.desired_ROI.label_tag }} {{ form.desired_ROI }}
+  </div>
+  <div class="mb-4">
+    {{ form.stop_loss.label_tag }} {{ form.stop_loss }}
+  </div>
+  <button class="px-4 py-2 bg-blue-500 text-white rounded-md" type="submit">Start Bot</button>
+</form>
 
-  <h2 class="text-xl font-bold mt-4">Asset Positions</h2>
-  <!-- Display asset positions -->
+<h2 class="text-xl font-bold mt-4">Asset Positions</h2>
+<!-- Display asset positions -->
 
-  <h2 class="text-xl font-bold mt-4">Asset Value</h2>
-  <!-- Display asset value -->
+<h2 class="text-xl font-bold mt-4">Asset Value</h2>
+<!-- Display asset value -->
 
-  <h2 class="text-xl font-bold mt-4">Funds Available</h2>
-  <!-- Display funds available -->
+<h2 class="text-xl font-bold mt-4">Funds Available</h2>
+<!-- Display funds available -->
 
-  <h2 class="text-xl font-bold mt-4">24 Hour Chart</h2>
-  <!-- Display 24-hour chart -->
+<h2 class="text-xl font-bold mt-4">24 Hour Chart</h2>
+<!-- Display 24-hour chart -->
 
-  <p class="mt-4"><a class="text-blue-500" href="{% url 'logout' %}">Log Out</a></p>
+<p class="mt-4"><a class="text-blue-500" href="{% url 'logout' %}">Log Out</a></p>
 {% else %}
-  <p class="text-xl font-bold">You are not logged in</p>
-  <a class="text-blue-500" href="{% url 'login' %}">Log In</a>
+<p class="text-xl font-bold">You are not logged in</p>
+<a class="text-blue-500" href="{% url 'login' %}">Log In</a>
 {% endif %}
 {% endblock %}

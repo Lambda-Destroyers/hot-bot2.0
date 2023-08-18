@@ -9,6 +9,7 @@ from .models import HotBot
 from .permissions import isOwnerOrReadOnly
 from .serializer import HotBotSerializer
 from . import retrieve, training, process, main_script
+from django.views.generic.edit import CreateView
 
 class CustomAdminLoginView(LoginView):
     def get_success_url(self):
@@ -29,28 +30,32 @@ class HotBotDetail(generics.RetrieveUpdateDestroyAPIView):
 class HotBotData(APIView):
     permission_classes = (IsAuthenticated,)
 
-def home(request):
-    form = BotConfigForm(request.POST or None)
-    if form.is_valid():
+def HomeView(request):
+    if request.method == 'POST': 
+      form = BotConfigForm(request.POST)
+      if form.is_valid():
         handle_bot_config(form)
 
-    # Retrieve and display the current asset positions, value, funds available, and the 24-hour chart
-    account_info = retrieve.get_account_info()
-    asset_positions = account_info  # Assuming account_info has the asset details you need
-    
-    # For the 24-hour chart
-    product_id = retrieve.get_product_id('BTC', 'USD')  # Just an example
-    historical_data = retrieve.fetch_historical_data(product_id, 3600)
-    processed_data = process.process_historical_data(historical_data)
-    chart_data = training.predict_future_price(processed_data)
+        # Retrieve and display the current asset positions, value, funds available, and the 24-hour chart
+        account_info = retrieve.get_account_info()
+        asset_positions = account_info  # Assuming account_info has the asset details you need
+        
+        # For the 24-hour chart
+        product_id = retrieve.get_product_id('BTC', 'USD')  # Just an example
+        historical_data = retrieve.fetch_historical_data(product_id, 3600)
+        processed_data = process.process_historical_data(historical_data)
+        chart_data = training.predict_future_price(processed_data)
 
-    context = {
-        'form': form,
-        'asset_positions': asset_positions,
-        'chart_data': chart_data,
-    }
+        context = {
+            'form': form,
+            'asset_positions': asset_positions,
+            'chart_data': chart_data,
+        }
+        return render(request, 'home.html', context)
+    else:
+        form = BotConfigForm()
 
-    return render(request, 'home.html', context)
+    return render(request, 'home.html', {'form': form})
 
 def handle_bot_config(form):
     price = form.cleaned_data['price']
@@ -68,4 +73,3 @@ def handle_bot_config(form):
     
     # You can handle the response as needed, such as printing it or logging it
     print(response)
-

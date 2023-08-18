@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 #from trading import ...
 
 # 0               id  d9964477-37cd-4ed6-8c40-67e814d12ee1
@@ -29,6 +30,9 @@ class HotBot(models.Model):
 
     def __str__(self):
         return f"{self.currency} HotBot (owned by {self.owner})"
+
+    def get_absolute_url(self):
+        return reverse("home")
 
 class Transaction(models.Model):
     transaction_id = models.AutoField(primary_key=True)
