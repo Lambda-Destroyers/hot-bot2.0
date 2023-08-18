@@ -1,6 +1,6 @@
-import retrieve
-import process
-import training
+from . import retrieve
+from . import process
+from . import training
 import time
 import pandas as pd
 import json
