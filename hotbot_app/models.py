@@ -1,23 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-#from trading import ...
+from django.urls import reverse
 
-# 0               id  d9964477-37cd-4ed6-8c40-67e814d12ee1
-# 1            price                                 10000
-# 2             size                                 0.001
-# 3       product_id                               BTC-USD
-# 4             side                                   buy
-# 5              stp                                    dc
-# 6             type                                 limit
-# 7    time_in_force                                   GTC
-# 8        post_only                                 False
-# 9       created_at           2023-08-17T02:33:46.597031Z
-# 10       fill_fees                                     0
-# 11     filled_size                                     0
-# 12  executed_value                                     0
-# 13          status                               pending
-# 14         settled                                 False
-    
 class HotBot(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=20, decimal_places=10)
@@ -29,6 +13,8 @@ class HotBot(models.Model):
 
     def __str__(self):
         return f"{self.currency} HotBot (owned by {self.owner})"
+    def get_absolute_url(self):
+        return reverse("transaction_detail", kwargs={"pk": self.pk})
 
 class Transaction(models.Model):
     transaction_id = models.AutoField(primary_key=True)
