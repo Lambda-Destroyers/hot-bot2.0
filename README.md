@@ -41,3 +41,4 @@ accounts/login/
 When creating
 Create files and content with appropriate app and project filenames.
 
+python3 -m pytest --cov=/Users/andrewcarroll/Code-Fellows/projects/courses/code-401/hot-bot2.0/ tests/sandbox_tests.py
