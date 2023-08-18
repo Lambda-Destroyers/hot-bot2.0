@@ -1,6 +1,6 @@
-from . import retrieve
-from . import process
-from . import training
+from sandbox_module import retrieve
+from sandbox_module import process
+from sandbox_module import training
 import time
 import pandas as pd
 import json
@@ -19,8 +19,9 @@ def create_order(product_id, side, order_type, size=None, funds=None, price=None
     if funds:
         body["funds"] = str(funds)
     if price:
-        body["price"] = str(price)
-        print(f"Price: {price}")
+        formatted_price = format(float(price), '.2f')
+        body["price"] = formatted_price
+        print(f"Price: {formatted_price}")
     body_str = json.dumps(body, separators=(',', ':'))
     headers = retrieve.create_headers(method, request_path, body_str)
 
@@ -46,6 +47,7 @@ def trade_crypto(base_currency, quote_currency, amount, side, order_type, price=
 
     # Use the provided price if it's given, otherwise use the predicted price
     trade_price = price if price is not None else predicted_price
+    formatted_trade_price = format(float(trade_price), '.2f')
     
     if predicted_price > processed_data.iloc[-1]:
         side = "buy"
@@ -54,7 +56,7 @@ def trade_crypto(base_currency, quote_currency, amount, side, order_type, price=
     
     order_configuration = {
         "size": str(amount),
-        "price": str(trade_price)
+        "price": formatted_trade_price
     }
     response = create_order(product_id, side, order_type, **order_configuration)
     return response
